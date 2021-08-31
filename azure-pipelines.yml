@@ -12,10 +12,32 @@ pool:
 steps:
 - task: NexusIqPipelineTask@1
   inputs:
+    nexusIqService: 'Local IQ Server'
+    applicationId: 'sandbox-application'
+    stage: 'Build'
+    scanTargets: '**/*.lock'
+    ignoreSystemError: true
+    continueOnError: true
+  displayName: 'Nexus IQ Scan FULL'
+
+- bash: |
+    echo "List all files."
+    ls -l
+    echo "Remove only package.json file, and list remaining files."
+    shopt -s extglob
+    rm package.json
+    #rm -v !("yarn.lock")
+    #echo "All removes except yarn.lock"
+    ls -l
+  displayName: 'See existing files'
+
+- task: NexusIqPipelineTask@1
+  inputs:
       nexusIqService: 'Local IQ Server'
       applicationId: 'sandbox-application'
       stage: 'Build'
       scanTargets: '**/*.lock'
       ignoreSystemError: true
       continueOnError: true
+  displayName: 'Nexus IQ Scan PART'
 
