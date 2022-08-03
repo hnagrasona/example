@@ -6,7 +6,6 @@
   "scripts": {
     "heroku-prebuild": "cp ./src/config/env.ts.dist ./src/config/env.ts",
     "heroku-postbuild": "yarn db:seed",
-    "postinstall": "./scripts/postinstall.sh",
     "clear": "rimraf dist",
     "build": "yarn clear && tsc && yarn doc",
     "start": "yarn start:prod",
